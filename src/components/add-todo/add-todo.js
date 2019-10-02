@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-
-import { addTodoItem } from '../../redux/todo/todo.actions';
 
 const todoInitial = {
   uid: '',
@@ -16,38 +13,30 @@ function AddTodo({ addTodoItem }) {
     setTodo({ ...todo, taskName: e.target.value });
   };
 
-  const onAddButtonClick = () => {
+  const onFormSubmit = e => {
+    e.preventDefault();
     addTodoItem(todo);
     setTodo(todoInitial);
   };
 
   return (
-    <div className='input-group mb-3'>
-      <input
-        type='text'
-        className='form-control'
-        placeholder='Work hard not smart'
-        value={todo.taskName}
-        onChange={onInputChange}
-      />
-      <div className='input-group-append'>
-        <button
-          className='btn btn-outline-secondary'
-          type='button'
-          onClick={onAddButtonClick}
-        >
-          <i className='fa fa-plus'></i>
-        </button>
+    <form onSubmit={onFormSubmit}>
+      <div className='input-group mb-3 mt-3'>
+        <input
+          type='text'
+          className='form-control'
+          placeholder='Work hard not smart'
+          value={todo.taskName}
+          onChange={onInputChange}
+        />
+        <div className='input-group-append'>
+          <button className='btn btn-outline-secondary' type='submit'>
+            <i className='fa fa-plus'></i>
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
 
-const mapDispatchToProps = dispatch => ({
-  addTodoItem: item => dispatch(addTodoItem(item)),
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(AddTodo);
+export default AddTodo;

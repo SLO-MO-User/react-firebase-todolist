@@ -1,11 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
-import { updateTodoItem, removeTodoItem } from '../../redux/todo/todo.actions';
-import { selectTodos } from '../../redux/todo/todo.selectors';
-
-function TodoList({ todos, updateTodoItem, removeTodoItem }) {
+function TodoList({ todos, updateTodoItem, removeTodoItem, isNightMode }) {
   const toggleComplete = todo => {
     let todoToUpdate = { ...todo, completed: !todo.completed };
     updateTodoItem(todoToUpdate);
@@ -18,7 +13,9 @@ function TodoList({ todos, updateTodoItem, removeTodoItem }) {
         return (
           <li
             key={uid}
-            className='list-group-item d-flex justify-content-between align-items-center border-bottom'
+            className={`list-group-item d-flex justify-content-between align-items-center border-bottom ${
+              isNightMode ? 'bg-dark text-white' : ''
+            }`}
           >
             <span
               className={`${completed ? 'line-through' : ''}`}
@@ -37,16 +34,4 @@ function TodoList({ todos, updateTodoItem, removeTodoItem }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  todos: selectTodos,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateTodoItem: item => dispatch(updateTodoItem(item)),
-  removeTodoItem: uid => dispatch(removeTodoItem(uid)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoList);
+export default TodoList;
