@@ -14,7 +14,7 @@ const TodoPage = lazy(() => import('./pages/todopage/todopage'));
 function App({ isNightMode }) {
   return (
     <div
-      className='container'
+      className='col-12 container'
       style={
         isNightMode
           ? { height: '100vh', background: 'black' }

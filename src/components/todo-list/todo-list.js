@@ -13,12 +13,13 @@ function TodoList({ todos, updateTodoItem, removeTodoItem, isNightMode }) {
         return (
           <li
             key={uid}
-            className={`list-group-item d-flex justify-content-between align-items-center border-bottom ${
+            className={`list-group-item d-flex justify-content-between align-items-center border ${
               isNightMode ? 'bg-dark text-white' : ''
             }`}
           >
             <span
-              className={`${completed ? 'line-through' : ''}`}
+              className={`${completed ? 'line-through' : ''} text-truncate`}
+              title={taskName}
               onClick={() => toggleComplete(todo)}
             >
               {taskName}
